@@ -1,0 +1,5 @@
+# Python bağımlılıkları (GUI için)
+# Arch/CachyOS'ta sistem paketi önerilir: sudo pacman -S python-pyserial tk
+# pip ile:
+pyserial>=3.5
+# tkinter çoğu dağıtımda ayrı paket olarak gelir (Arch: 'tk', Debian/Ubuntu: 'python3-tk')

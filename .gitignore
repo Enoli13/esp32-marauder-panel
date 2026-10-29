@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Marauder çıktıları / indirilenler
+*.bin
+*.zip
+*.pcap
+aglar.csv
+
+# OS
+.DS_Store
+*.swp
