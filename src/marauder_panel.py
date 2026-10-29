@@ -219,8 +219,29 @@ class Panel:
         sb = ttk.Scrollbar(frame, orient="vertical", command=self.tree.yview)
         self.tree.configure(yscroll=sb.set)
         self.tree.pack(side="left", fill="both", expand=True); sb.pack(side="right", fill="y")
-        self.count_lbl = ttk.Label(self.root, text="Bulunan ağ: 0", padding=(10, 2))
-        self.count_lbl.pack(anchor="w")
+        bar = ttk.Frame(self.root, padding=(8, 2)); bar.pack(fill="x")
+        self.count_lbl = ttk.Label(bar, text="Bulunan ağ: 0")
+        self.count_lbl.pack(side="left")
+        ttk.Button(bar, text="⌖ Seçili ağı HEDEF yap (Marauder listesine ekle)",
+                   command=self.add_selected_as_target).pack(side="right")
+        ttk.Label(bar, text="(tabloda bir satıra çift tıkla = hedef yap)",
+                  foreground="#789").pack(side="right", padx=8)
+        self.tree.bind("<Double-1>", lambda e: self.add_selected_as_target())
+
+    def add_selected_as_target(self):
+        """Tablodan seçili AP'yi Marauder'ın iç listesine ekler ve seçer.
+        scanap/list -a ekransız kartta listeyi doldurmadığı için köprü budur."""
+        sel = self.tree.selection()
+        if not sel:
+            self.log("!! Önce tablodan bir ağ (satır) seç.\n"); return
+        ssid, bssid, ch, rssi, count = self.tree.item(sel[0], "values")
+        cmd = f"add -a -b {bssid} -ch {ch}"
+        if ssid and ssid != "<gizli>":
+            cmd += f" -e {ssid}"
+        self.write(cmd)        # Marauder listesine ekler + otomatik seçer
+        self.write("list -a")  # index'leri göster
+        self.log(f">> HEDEF yapıldı: {ssid} ({bssid}, CH {ch}). "
+                 f"Artık 'Saldırı'/'Listeler' sekmelerini kullanabilirsin.\n")
 
     # ================= HAM KONSOL =================
     def _build_console(self):
