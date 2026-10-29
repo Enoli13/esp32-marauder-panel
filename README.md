@@ -1,4 +1,4 @@
-# ESP32 Marauder — CachyOS/Linux Araç Takımı
+# ESP32 Marauder — ARCH/Linux Araç Takımı
 
 Bare **ESP32-WROOM** (ekransız NodeMCU/DevKit) üzerinde [ESP32 Marauder](https://github.com/justcallmekoko/ESP32Marauder) firmware'ini **terminalden flashlamak** ve **grafik bir panelden kullanmak** için hazırlanmış küçük bir araç takımı. Linux (CachyOS/Arch) için yazıldı.
 
